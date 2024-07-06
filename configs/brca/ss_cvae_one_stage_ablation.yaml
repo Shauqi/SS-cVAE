@@ -1,0 +1,76 @@
+RANDOM_SEED_VALUE: 42
+PROJECT_DIR: /data04/shared/mahmudul/Uncertainty_Estimation/SS-cVAE
+GPU_LIST:
+  - 2
+
+CVAE_MODEL_TRAIN:
+  RANDOM_SEED_VALUE: 42
+  PROJECT_DIR: /data04/shared/mahmudul/Uncertainty_Estimation/SS-cVAE
+  GPU_LIST:
+    - 2
+  debug: False
+  resume_from_checkpoint: False
+  model_name: ss_cvae_one_stage_ablation
+  max_epochs: 500
+  num_classes: 2
+  version_number: 0
+  epoch_number: 119
+  chkpt_dir: /output/ss_cvae_one_stage_ablation/BRCA/checkpoints
+  output_dir: /output/ss_cvae_one_stage_ablation/BRCA
+
+  dataset: BRCA
+  train_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/MultiClass/combined/Train
+  val_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/MultiClass/combined/Test
+  test_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/Binary/real/Valid
+
+  train_batch_size: 32
+  val_batch_size: 32
+  test_batch_size: 32
+  learning_rate: 0.001
+  model_parameters:
+    background_disentanglement_penalty: 10
+    salient_disentanglement_penalty: 10
+    salient_latent_size: 128
+    background_latent_size: 128
+
+CONTRASTIVE_MODEL_TRAIN:
+  PROJECT_DIR: /data04/shared/mahmudul/Uncertainty_Estimation/SS-cVAE
+  debug: False
+  resume_from_checkpoint: False
+  model_name: contrastive_ss_cvae_one_stage_ablation
+  max_epochs: 500
+  num_classes: 2  
+  version_number: 0
+  epoch_number: 119
+  chkpt_dir: /output/ss_cvae_one_stage_ablation
+  output_dir: /output/contrastive_ss_cvae_one_stage_ablation
+
+  dataset: BRCA
+  train_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined/Train
+  val_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined/Test
+  test_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined/Valid
+  train_batch_size: 32
+  val_batch_size: 64
+  test_batch_size: 64
+  learning_rate: 0.001
+
+  model_parameters:
+    background_disentanglement_penalty: 10
+    salient_disentanglement_penalty: 10
+    salient_latent_size: 128
+    background_latent_size: 128
+    input_channels: 3
+    image_size:
+      - 3
+      - 128
+      - 128
+    num_classes: 3
+    filter_channels:
+      - 32
+      - 64
+      - 128
+      - 192
+      - 192
+      - 192
+      - 192
+    latent_levels: 5

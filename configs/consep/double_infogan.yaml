@@ -1,0 +1,149 @@
+RANDOM_SEED_VALUE: 42
+PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+GPU_LIST:
+    - 0
+
+CVAE_MODEL_TRAIN:
+    RANDOM_SEED_VALUE: 42
+    PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+    GPU_LIST:
+        - 0
+
+    debug : False
+    output_dir : /output/double_infogan/consep_synth
+    chkpt_dir : /output/double_infogan/consep_synth/checkpoints
+    model_name: double_infogan
+    dataset : consep_synth
+    version_number: 1
+    epoch_number: 59
+    max_epochs : 500
+    resume_from_checkpoint: False
+    train_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/synthetic/Train
+    val_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/real/Valid
+    test_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/real/Test
+    train_batch_size : 64
+    val_batch_size : 64
+    test_batch_size : 64
+
+    # batch_size : 128
+
+    latent_distribution : 'normal' # choices : normal & uniform
+
+    seed : "None"
+
+    in_channels : 3 # number of image channels
+    dec_channels : 32
+
+    salient_latent_size : 128 #3
+    background_latent_size : 128 #32
+
+    cr : 
+        model : DCGAN
+        std : 0.1
+        gap : 0.0
+
+    discriminator : 
+        model : 'DCGAN'
+        std: 0.2
+        
+    generator : 
+        model : 'DCGAN'
+        act_fn : 'tanh'
+
+
+    lr_g : 0.0002  # adam : learning rate for generator
+    lr_d : 0.0002  # adam : learning rate for discriminator
+    lr_cr : 0.0002  # adam : learning rate for CR net
+
+    loop_g : 1  # Generator steps
+    loop_d : 1  # Discriminator steps
+    loop_cr : 0  # CR steps
+
+    infoloss : 'l1' # choices : l1 ou gauss
+
+    ## Loss weights
+    w_bg : 0.5  #Weights for X and Y (to start training with X only for instance) 
+    w_t : 1.0
+    wadv : 0.5 # Loss weight for adversarial gan loss
+    wi_z : 1.0  # Loss weight for info (z reconstruction)
+    wi_s : 1.0  # Loss weight for info (s reconstruction)
+    wc : 0.5    # Loss weight for class loss
+    wii : 1.0   # Loss weight for image reconstruction loss
+    wcr : 0.0
+    wi_real_s : 1.0
+
+    save_img_epoch : 10
+    save_img_linspace_epoch : 50
+    save_ckpt : 50
+
+CONTRASTIVE_MODEL_TRAIN:
+    RANDOM_SEED_VALUE: 42
+    PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+    GPU_LIST:
+        - 0
+
+    debug : False
+    chkpt_dir: /output/contrastive_double_infogan
+    output_dir: /output/contrastive_double_infogan
+
+    model_name : contrastive_double_infogan
+
+    dataset : consep
+    version_number: 0
+    epoch_number: 59
+    max_epochs : 500
+    train_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Train
+    val_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Valid
+    test_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Test
+    train_batch_size : 64
+    val_batch_size : 64
+    test_batch_size : 64
+
+    latent_distribution : 'normal' # choices : normal & uniform
+
+    seed : "None"
+
+    in_channels : 3 # number of image channels
+    dec_channels : 32
+
+    salient_latent_size : 128 #3
+    background_latent_size : 128 #32
+
+    cr : 
+        model : DCGAN
+        std : 0.1
+        gap : 0.0
+
+    discriminator : 
+        model : 'DCGAN'
+        std: 0.2
+        
+    generator : 
+        model : 'DCGAN'
+        act_fn : 'tanh'
+
+
+    lr_g : 0.0002  # adam : learning rate for generator
+    lr_d : 0.0002  # adam : learning rate for discriminator
+    lr_cr : 0.0002  # adam : learning rate for CR net
+
+    loop_g : 1  # Generator steps
+    loop_d : 1  # Discriminator steps
+    loop_cr : 0  # CR steps
+
+    infoloss : 'l1' # choices : l1 ou gauss
+
+    ## Loss weights
+    w_bg : 0.5  #Weights for X and Y (to start training with X only for instance) 
+    w_t : 1.0
+    wadv : 0.5 # Loss weight for adversarial gan loss
+    wi_z : 1.0  # Loss weight for info (z reconstruction)
+    wi_s : 1.0  # Loss weight for info (s reconstruction)
+    wc : 0.5    # Loss weight for class loss
+    wii : 1.0   # Loss weight for image reconstruction loss
+    wcr : 0.0
+    wi_real_s : 1.0
+
+    save_img_epoch : 10
+    save_img_linspace_epoch : 50
+    save_ckpt : 50

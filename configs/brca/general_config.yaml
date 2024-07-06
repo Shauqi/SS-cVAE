@@ -1,0 +1,84 @@
+RANDOM_SEED_VALUE: 42
+
+PATCH_EXTRACTION:
+  TRAIN_DIR: ./data/segmentation/TCGA_BRCA/Train
+  VALID_DIR: ./data/segmentation/TCGA_BRCA/Valid
+  TEST_DIR: ./data/segmentation/TCGA_BRCA/Test
+  OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128
+  TILE_WIDTH: 1024
+  TILE_HEIGHT: 1024
+  PATCH_WIDTH: 128
+  PATCH_HEIGHT: 128
+
+BINARY_PATCH_FILTER:
+  INPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128
+  OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128
+  VISUALIZATION_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/Visualization
+  class_0: BACKGROUND
+  class_1: FOREGROUND
+
+MULTI_CLASS_PATCH_FILTER:
+  INPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128
+  OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/MultiClass
+  VISUALIZATION_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/Visualization
+  class_0: BACKGROUND
+  class_1: 20% LYMPHOCYTE
+  class_2: OTHER
+
+
+SYNTHETIC_DATA_CREATION:
+  INPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/combined
+  OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/synthetic
+
+REAL_DATA_CREATION:
+  INPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/combined
+  OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/real
+
+TIL_VS_OTHER_PATCH_PREPROCESSING:
+  PATCH_EXTRACTION:
+    TRAIN_DIR: ./data/segmentation/TCGA_BRCA/Train
+    VALID_DIR: ./data/segmentation/TCGA_BRCA/Valid
+    TEST_DIR: ./data/segmentation/TCGA_BRCA/Test
+    OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128
+    TILE_WIDTH: 1024
+    TILE_HEIGHT: 1024
+    PATCH_WIDTH: 128
+    PATCH_HEIGHT: 128
+
+  PATCH_FILTER:
+    INPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128
+    OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128
+    VISUALIZATION_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/Visualization
+    class_0: NON_TIL
+    class_1: TIL
+
+  SYNTHETIC_DATA_CREATION:
+    INPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined
+    OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/synthetic
+
+  REAL_DATA_CREATION:
+    INPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined
+    OUTPUT_DIR: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/real
+
+  test_dir: ./data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined/Valid
+
+VISUALIZATION_PROPERTIES:
+  NUMBER_OF_CLASSES: 4
+  CLASSES:
+    - BACKGROUND
+    - LYMPHOCYTE
+    - TUMOR
+    - MISCELLANEUOS
+    - UNKNOWN
+  CLASS_WITH_IDS:
+    BACKGROUND: 0
+    LYMPHOCYTE: 1
+    TUMOR: 2
+    MISCELLANEUOS: 3
+    UNKNOWN: 4    
+  CLASS_WITH_COLORS:
+    BACKGROUND: [255,255,255]
+    LYMPHOCYTE: [255,0,0]
+    TUMOR: [0,255,0]
+    MISCELLANEUOS: [0,0,255]
+    UNKNOWN: [0, 0, 0]
