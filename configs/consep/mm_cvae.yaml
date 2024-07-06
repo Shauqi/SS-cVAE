@@ -1,0 +1,95 @@
+RANDOM_SEED_VALUE: 42
+PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+GPU_LIST:
+  - 0
+
+CVAE_MODEL_TRAIN:
+  RANDOM_SEED_VALUE: 42
+  PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+  GPU_LIST:
+    - 0
+  debug: False
+  resume_from_checkpoint: False
+  model_name: mm_cvae
+  max_epochs: 500
+  num_classes: 2
+  version_number: 3
+  epoch_number: 194
+  chkpt_dir: /output/mm_cvae/consep_synth/checkpoints
+  output_dir: /output/mm_cvae/consep_synth
+
+  dataset: consep_synth
+  train_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/synthetic/Train
+  val_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/real/Valid
+  test_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/real/Test
+
+  train_batch_size: 64
+  val_batch_size: 64
+  test_batch_size: 64
+  learning_rate: 0.001
+  model_parameters:
+    background_disentanglement_penalty: 10
+    salient_disentanglement_penalty: 10
+    salient_latent_size: 128
+    background_latent_size: 128
+    input_channels: 3
+    image_size:
+      - 3
+      - 128
+      - 128
+    num_classes: 2
+    filter_channels:
+      - 32
+      - 64
+      - 128
+      - 192
+      - 192
+      - 192
+      - 192
+    latent_levels: 5
+
+
+CONTRASTIVE_MODEL_TRAIN:
+  RANDOM_SEED_VALUE: 42
+  PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+  GPU_LIST:
+    - 0
+  debug: False
+  resume_from_checkpoint: False
+  model_name: contrastive_mm_cvae
+  max_epochs: 500
+  num_classes: 2  
+  version_number: 0
+  epoch_number: 29
+  chkpt_dir: /output/contrastive_mm_cvae
+  output_dir: /output/contrastive_mm_cvae
+
+  dataset: consep
+  train_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Train
+  val_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Valid
+  test_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Test
+  train_batch_size: 32
+  val_batch_size: 64
+  test_batch_size: 64
+  learning_rate: 0.001
+
+  model_parameters:
+    background_disentanglement_penalty: 10
+    salient_disentanglement_penalty: 10
+    salient_latent_size: 128
+    background_latent_size: 128
+    input_channels: 3
+    image_size:
+      - 3
+      - 128
+      - 128
+    num_classes: 3
+    filter_channels:
+      - 32
+      - 64
+      - 128
+      - 192
+      - 192
+      - 192
+      - 192
+    latent_levels: 5

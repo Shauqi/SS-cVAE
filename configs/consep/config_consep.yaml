@@ -1,0 +1,60 @@
+RANDOM_SEED_VALUE: 42
+PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+
+PATCH_EXTRACTION:
+  TRAIN_DIR: /data/segmentation/CoNSeP/Original/Train
+  VALID_DIR:
+  TEST_DIR: /data/segmentation/CoNSeP/Original/Test
+  OUTPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128
+  TILE_WIDTH: 1024
+  TILE_HEIGHT: 1024
+  PATCH_WIDTH: 128
+  PATCH_HEIGHT: 128
+
+BINARY_PATCH_FILTER:
+  INPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128
+  OUTPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary
+  VISUALIZATION_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Visualization
+  class_0: BACKGROUND
+  class_1: FOREGROUND
+
+TIL_VS_OTHER_PATCH_FILTER:
+  INPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128
+  OUTPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER
+  VISUALIZATION_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/Visualization
+  class_0: NON_TIL
+  class_1: TIL
+
+MULTI_CLASS_PATCH_FILTER:
+  INPUT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128
+  OUTPUT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/MultiClass
+  VISUALIZATION_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Visualization
+  class_0: BACKGROUND
+  class_1: 20% LYMPHOCYTE
+  class_3: OTHER
+
+SYNTHETIC_DATA_CREATION:
+  INPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/combined
+  OUTPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/synthetic
+
+REAL_DATA_CREATION:
+  INPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/combined
+  OUTPUT_DIR: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/real
+
+VISUALIZATION_PROPERTIES:
+  NUMBER_OF_CLASSES: 4
+  CLASSES:
+    - BACKGROUND
+    - LYMPHOCYTE
+    - TUMOR
+    - STROMAL
+  CLASS_WITH_IDS:
+    BACKGROUND: 0
+    LYMPHOCYTE: 1
+    TUMOR: 2
+    STROMAL: 3  
+  CLASS_WITH_COLORS:
+    BACKGROUND: [255,255,255]
+    LYMPHOCYTE: [255,0,0]
+    TUMOR: [0,255,0]
+    STROMAL: [0,0,255]

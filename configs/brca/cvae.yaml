@@ -1,0 +1,94 @@
+RANDOM_SEED_VALUE: 42
+PROJECT_DIR: /data04/shared/mahmudul/Uncertainty_Estimation/SS-cVAE
+GPU_LIST:
+  - 0
+
+CVAE_MODEL_TRAIN:
+  RANDOM_SEED_VALUE: 42
+  PROJECT_DIR: /data04/shared/mahmudul/Uncertainty_Estimation/SS-cVAE
+  GPU_LIST:
+    - 0
+  debug: False
+  resume_from_checkpoint: False
+  model_name: cvae
+  max_epochs: 500
+  num_classes: 2
+  version_number: 0
+  epoch_number: 29
+  chkpt_dir: /output/cvae/brca_synth/checkpoints
+  output_dir: /output/cvae/brca_synth
+
+  dataset: brca_synth
+  train_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/Binary/synthetic/Train
+  val_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/Binary/real/Test
+  test_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/Binary/real/Valid
+
+  train_batch_size: 64
+  val_batch_size: 64
+  test_batch_size: 64
+  learning_rate: 0.001
+  model_parameters:
+    background_disentanglement_penalty: 10
+    salient_disentanglement_penalty: 10
+    salient_latent_size: 128
+    background_latent_size: 128
+    input_channels: 3
+    image_size:
+      - 3
+      - 128
+      - 128
+    num_classes: 2
+    filter_channels:
+      - 32
+      - 64
+      - 128
+      - 192
+      - 192
+      - 192
+      - 192
+    latent_levels: 5
+
+CONTRASTIVE_MODEL_TRAIN:
+  RANDOM_SEED_VALUE: 42
+  PROJECT_DIR: /scr/mahmudul/thesis_project
+  GPU_LIST:
+    - 7
+  debug: False
+  resume_from_checkpoint: False
+  model_name: contrastive_cvae
+  max_epochs: 500
+  num_classes: 2  
+  version_number: 0
+  epoch_number: 09
+  chkpt_dir: /output/contrastive_cvae
+  output_dir: /output/contrastive_cvae
+
+  dataset: brca
+  train_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined/Train
+  val_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined/Test
+  test_dir: /data/segmentation/TCGA_BRCA/TILE_1024_1024_Patch_128_128/til_vs_other_combined/Valid
+  train_batch_size: 32
+  val_batch_size: 64
+  test_batch_size: 64
+  learning_rate: 0.001
+
+  model_parameters:
+    background_disentanglement_penalty: 10
+    salient_disentanglement_penalty: 10
+    salient_latent_size: 128
+    background_latent_size: 128
+    input_channels: 3
+    image_size:
+      - 3
+      - 128
+      - 128
+    num_classes: 3
+    filter_channels:
+      - 32
+      - 64
+      - 128
+      - 192
+      - 192
+      - 192
+      - 192
+    latent_levels: 5

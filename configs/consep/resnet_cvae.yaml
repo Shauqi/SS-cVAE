@@ -1,0 +1,119 @@
+RANDOM_SEED_VALUE: 42
+PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+GPU_LIST:
+  - 0
+
+CVAE_MODEL_TRAIN:
+  RANDOM_SEED_VALUE: 42
+  PROJECT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation
+  GPU_LIST:
+    - 0
+  debug: False
+  resume_from_checkpoint: False
+  model_name: resnet_cvae
+  max_epochs: 500
+  num_classes: 2
+  version_number: 3
+  epoch_number: 69 #39
+  chkpt_dir: /output/resnet_cvae/consep_synth/checkpoints
+  output_dir: /output/resnet_cvae/consep_synth
+
+  dataset: consep_synth
+  train_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/synthetic/Train
+  val_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/real/Valid
+  test_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/Binary/real/Test
+
+  train_batch_size: 32
+  val_batch_size: 32
+  test_batch_size: 32
+  learning_rate: 0.001
+  model_parameters:
+    background_disentanglement_penalty: 10
+    salient_disentanglement_penalty: 10
+    salient_latent_size: 128
+    background_latent_size: 128
+
+
+CONTRASTIVE_MODEL_TRAIN:
+  debug: False
+  resume_from_checkpoint: False
+  model_name: contrastive_resnet_cvae
+  max_epochs: 500
+  num_classes: 2  
+  version_number: 2
+  epoch_number: 449
+  chkpt_dir: /output/contrastive_resnet_cvae
+  output_dir: /output/contrastive_resnet_cvae
+
+  dataset: consep
+  train_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Train
+  val_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Valid
+  test_dir: /data/segmentation/CoNSeP/TILE_1024_1024_Patch_128_128/TIL_VS_OTHER/combined/Test
+  train_batch_size: 32
+  val_batch_size: 64
+  test_batch_size: 64
+  learning_rate: 0.001
+
+  model_parameters:
+    input_channels: 3
+    image_size:
+      - 3
+      - 128
+      - 128
+    num_classes: 3
+    filter_channels:
+      - 32
+      - 64
+      - 128
+      - 192
+      - 192
+      - 192
+      - 192
+    latent_levels: 5
+
+
+GAN_TRAIN:
+  OUTPUT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/output/resnet_cvae/BRCA_synth/IDGAN
+  CHECKPOINT_DIR: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/output/resnet_cvae/BRCA_synth/IDGAN_checkpoints
+  img_size: 128
+  generator:
+    name: resnet3
+    kwargs:
+      nfilter: 64
+      nfilter_max: 512
+  discriminator:
+    name: resnet3
+    kwargs:
+      nfilter: 64
+      nfilter_max: 512
+  z_dist:
+    type: gauss
+    dim: 50
+  train_batch_size: 64
+  val_batch_size: 64
+  test_batch_size: 64
+  train_dir: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/data/segmentation/TCGA_BRCA/CHC_VAE/TILE_1024_1024_Patch_128_128/synthetic/Train
+  val_dir: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/data/segmentation/TCGA_BRCA/CHC_VAE/TILE_1024_1024_Patch_128_128/real/Test
+  test_dir: /ocean/projects/asc130006p/shared/mahmudul/Uncertainty_Estimation/data/segmentation/TCGA_BRCA/CHC_VAE/TILE_1024_1024_Patch_128_128/real/Valid
+  reg_param: 10.
+  w_info: 0.001
+  batch_size: 64
+  nworkers: 2
+  take_model_average: true
+  use_model_average: true
+  model_average_beta: 0.999
+  model_average_reinit: false
+  monitoring: tensorboard
+  sample_every: 1000
+  inception_every: -1 
+  save_every: 900
+  backup_every: 1000
+  max_iter: 300000
+  restart_every: -1
+  optimizer: rmsprop
+  lr_g: 0.0001
+  lr_d: 0.0001
+  lr_anneal: 1.
+  lr_anneal_every: 150000
+  d_steps: 1
+  equalize_lr: false
