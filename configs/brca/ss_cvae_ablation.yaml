@@ -13,8 +13,8 @@ CVAE_MODEL_TRAIN:
   model_name: ss_cvae_ablation
   max_epochs: 500
   num_classes: 2
-  version_number: 3 # 0 for MM-cVAE (ResNet), 1 for SS-cVAE (ResNet) + L_k, 2 for SS-cVAE (ResNet) + L_m_recon
-  epoch_number: 224 # version 0 - epoch 259, version 1 - epoch 304, version 2 - epoch 304
+  version_number: 3 # 0 for MM-cVAE (ResNet), 1 for SS-cVAE (ResNet) + L_k, 2 for SS-cVAE (ResNet) + L_m_recon, 3 for SS-cVAE (ResNet) + L_B_recon
+  epoch_number: 279 # version 0 - epoch 259, version 1 - epoch 304, version 2 - epoch 304, version 3 - epoch 279
   chkpt_dir: /output/ss_cvae_ablation/BRCA_synth/checkpoints
   output_dir: /output/ss_cvae_ablation/BRCA_synth
 
@@ -42,7 +42,7 @@ CONTRASTIVE_MODEL_TRAIN:
   max_epochs: 500
   num_classes: 2  
   version_number: 3
-  epoch_number: 224
+  epoch_number: 279
   chkpt_dir: /output/ss_cvae_ablation
   output_dir: /output/ss_cvae_ablation
 
